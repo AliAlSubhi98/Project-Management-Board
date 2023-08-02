@@ -21,6 +21,11 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<Card> createCard(@RequestBody Card card, @PathVariable Long boardId) {
+        // Check if the section is provided in the request body
+        if (card.getSection() == null) {
+            System.err.println("-------------------Card section cannot be null or empty-------------------");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         card.setBoard(new Board(boardId)); // Set the board for the card
         Card createdCard = cardService.createCard(card);
         return new ResponseEntity<>(createdCard, HttpStatus.CREATED);

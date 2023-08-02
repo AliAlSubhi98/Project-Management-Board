@@ -1,18 +1,15 @@
 package com.Codeline.Project.Management.Board.Models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-
 @Entity
 @Getter
 @Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "boards")
@@ -29,22 +26,20 @@ public class Board {
     @CollectionTable(name = "board_columns_mapping", joinColumns = @JoinColumn(name = "board_id"))
     @MapKeyColumn(name = "column_index")
     @Column(name = "column_name")
-    private Map<Integer, String> columns = new HashMap<>();
+    private Map<Integer, String> columns = Map.of(
+            1, "To do",
+            2, "In progress",
+            3, "Done"
+    );
 
     public Board(Long id) {
         this.id = id;
     }
+
     public Board(String title, Map<Integer, String> columns) {
         this.title = title;
         this.columns = columns;
-//        initializeSections();
     }
-//    private void initializeSections() {
-//        // Add the static sections "To Do", "In Progress", "Done" to the columns map
-//        columns.put(1, "To Do");
-//        columns.put(2, "In Progress");
-//        columns.put(3, "Done");
-//    }
 
     // Helper method to get section name by section index
     public static String getSectionName(int sectionIndex) {
@@ -60,6 +55,4 @@ public class Board {
                 return "Unknown";
         }
     }
-
-
 }

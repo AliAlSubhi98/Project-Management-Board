@@ -35,8 +35,9 @@ public class BoardService {
         }
 
         // Update the fields of the existing board with the values from the updated board
-        existingBoard.setTitle(updatedBoard.getTitle());
-        existingBoard.setColumns(updatedBoard.getColumns());
+        // existingBoard.setId(updatedBoard.getId());
+        existingBoard.setTitle(updatedBoard.getTitle()); // TITLE IS THE ONLY REQUIRED TO UPDATE
+        //existingBoard.setColumns(updatedBoard.getColumns());
 
         return boardRepository.save(existingBoard);
     }
