@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Board</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header">
+            <h1 id="boardTitle">Your Board Title</h1>
+            <input type="text" id="updateTitleInput" placeholder="Enter new title" aria-label="Update Title Input">
+            <button id="updateTitleButton" aria-label="Update Title Button">Update Title</button>
+        </div>
+    </header>
+    <main>
+        <div class="trello-board">
+            <div class="section" id="sectionToDo">
+                <h2>To Do</h2>
+                <div class="card">
+                    <h3>Task 1</h3>
+                    <p>This is the description for Task 1.</p>
+                </div>
+                <div class="card">
+                    <h3>Task 2</h3>
+                    <p>This is the description for Task 2.</p>
+                </div>
+            </div>
+            <div class="section" id="sectionInProgress">
+                <h2>In Progress</h2>
+            </div>
+            <div class="section" id="sectionDone">
+                <h2>Done</h2>
+            </div>
+        </div>
+    </main>
+    <aside>
+        <div class="control-panel">
+            <h2>Control Panel</h2>
+            <div class="control-forms">
+                <div class="control-method">
+                    <h3>Create Card</h3>
+                    <form id="createCardForm">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" required aria-label="Title Input">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" required aria-label="Description Input">
+                        <label for="section">Section:</label>
+                        <select id="section" required aria-label="Section Select">
+                            <option value="1">To Do</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                        <button type="submit" aria-label="Create Card Button">Create Card</button>
+                    </form>
+                </div>
+                <div class="control-method">
+                    <h3>Delete Card</h3>
+                    <form id="deleteCardForm">
+                        <label for="deleteCard">Select Card to Delete:</label>
+                        <select id="deleteCard" aria-label="Delete Card Select"></select>
+                        <button type="submit" aria-label="Delete Card Button">Delete Card</button>
+                    </form>
+                </div>
+                <div class="control-method">
+                    <h3>Update Card</h3>
+                    <form id="updateCardForm">
+                        <label for="updateCard">Select Card to Update:</label>
+                        <select id="updateCard" aria-label="Update Card Select"></select>
+                        <label for="updateTitle">Title:</label>
+                        <input type="text" id="updateTitle" required aria-label="Update Title Input">
+                        <label for="updateDescription">Description:</label>
+                        <input type="text" id="updateDescription" required aria-label="Update Description Input">
+                        <label for="updateSection">Section:</label>
+                        <select id="updateSection" required aria-label="Update Section Select">
+                            <option value="1">To Do</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                        <button type="submit" aria-label="Update Card Button">Update Card</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <script src="scripts.js"></script>
+</body>
+</html>
