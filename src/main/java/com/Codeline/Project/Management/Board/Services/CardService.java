@@ -24,7 +24,7 @@ public class CardService {
     }
 
     public Card getCardFromBoardById(Long boardId, Long cardId) {
-        return cardRepository.findByBoardIdAndCardId(boardId, cardId);
+        return cardRepository.findByBoardIdAndId(boardId, cardId);
     }
 
     public Card updateCard(Card updatedCard) {
@@ -41,7 +41,7 @@ public class CardService {
     }
 
     public boolean deleteCardFromBoard(Long boardId, Long cardId) {
-        Card card = cardRepository.findByBoardIdAndCardId(boardId, cardId);
+        Card card = cardRepository.findByBoardIdAndId(boardId, cardId);
         if (card == null) {
             return false; // Card not found
         }
