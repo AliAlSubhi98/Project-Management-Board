@@ -17,17 +17,23 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String title;
 
     @Column(length = 1000)
     private String description;
 
     @Column(nullable = false)
-    private int section;
+    private Integer section;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
+
+    // Getter for section name
+    public String getSectionName() {
+        return Board.getSectionName(this.section);
+    }
 }
+
