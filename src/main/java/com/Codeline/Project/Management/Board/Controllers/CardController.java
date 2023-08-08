@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/boards/{boardId}/cards")
 public class CardController {
     private final CardService cardService;

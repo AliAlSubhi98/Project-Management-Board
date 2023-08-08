@@ -1,37 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trello Board</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <div class="header">
             <h1 id="boardTitle">Your Board Title</h1>
             <input type="text" id="updateTitleInput" placeholder="Enter new title" aria-label="Update Title Input">
-            <button id="updateTitleButton" aria-label="Update Title Button">Update Title</button>
+            <button id="updateTitleButton" aria-label="Update Title Button" onclick="updateTitleOfTheBoard()">Update Title</button>
+        </div>
+        <div class="header">
+            <h1 id="boardId">Your Board ID</h1>
+            <input type="text" id="headerBoardIdInput" placeholder="Type the board ID" aria-label="Board ID Input">
+            <button id="getBoardButton" aria-label="Get the Board" onclick="changeBoard()">Get the Board</button>
         </div>
     </header>
     <main>
         <div class="trello-board">
-            <div class="section" id="sectionToDo">
+            
+            <div class="section" >
                 <h2>To Do</h2>
-                <div class="card">
-                    <h3>Task 1</h3>
-                    <p>This is the description for Task 1.</p>
-                </div>
-                <div class="card">
-                    <h3>Task 2</h3>
-                    <p>This is the description for Task 2.</p>
+                <div id="sectionToDo">
+                    <!-- <div class="card">
+                        <h3>Task 1</h3>
+                        <p>This is the description for Task 1.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Task 2</h3>
+                        <p>This is the description for Task 2.</p>
+                    </div> -->
                 </div>
             </div>
-            <div class="section" id="sectionInProgress">
+            <div class="section">
                 <h2>In Progress</h2>
+                <div id="sectionInProgress">
+                </div>
             </div>
-            <div class="section" id="sectionDone">
+            <div class="section" >
                 <h2>Done</h2>
+                <div id="sectionDone">
+                    
+                </div>
             </div>
         </div>
     </main>
@@ -52,22 +67,31 @@
                             <option value="2">In Progress</option>
                             <option value="3">Done</option>
                         </select>
-                        <button type="submit" aria-label="Create Card Button">Create Card</button>
+                        <button type="submit" aria-label="Create Card Button" onclick="createCardFunction()">Create
+                            Card</button>
                     </form>
                 </div>
                 <div class="control-method">
                     <h3>Delete Card</h3>
                     <form id="deleteCardForm">
-                        <label for="deleteCard">Select Card to Delete:</label>
-                        <select id="deleteCard" aria-label="Delete Card Select"></select>
-                        <button type="submit" aria-label="Delete Card Button">Delete Card</button>
+                        <label for="deleteCard">Select Card to Delete: </label>
+                        <select id="deleteCard" aria-label="Delete Card Select" required>
+                            <option value="" disabled selected >Select an option</option>
+                            <!-- <option value="test">Test</option> -->
+                        </select>
+                        <button type="button" aria-label="Delete Card Button" onclick="deleteCardFunction()">Delete
+                            Card</button>
                     </form>
                 </div>
                 <div class="control-method">
                     <h3>Update Card</h3>
                     <form id="updateCardForm">
                         <label for="updateCard">Select Card to Update:</label>
-                        <select id="updateCard" aria-label="Update Card Select"></select>
+                        <select id="updateCard" aria-label="Update Card Select">
+                            <option value="" disabled selected>Select an option</option>
+
+                        </select>
+                        
                         <label for="updateTitle">Title:</label>
                         <input type="text" id="updateTitle" required aria-label="Update Title Input">
                         <label for="updateDescription">Description:</label>
@@ -78,7 +102,7 @@
                             <option value="2">In Progress</option>
                             <option value="3">Done</option>
                         </select>
-                        <button type="submit" aria-label="Update Card Button">Update Card</button>
+                        <button type="submit" aria-label="Update Card Button" onclick="updateCardFunction()">Update Card</button>
                     </form>
                 </div>
             </div>
@@ -86,4 +110,5 @@
     </aside>
     <script src="scripts.js"></script>
 </body>
+
 </html>

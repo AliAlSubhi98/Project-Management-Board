@@ -4,230 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trello Board</title>
-    <style>
-        /* Add your CSS styles here */
-        /* Reset some default styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  background-color: #f4f4f4;
-}
-
-header {
-  background-color: #026aa7;
-  color: #fff;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.header h1 {
-  font-size: 1.5rem;
-}
-
-#updateTitleInput {
-  padding: 0.5rem;
-  border: none;
-  border-radius: 4px;
-}
-
-#updateTitleButton {
-  padding: 0.5rem 1rem;
-  background-color: #044c86;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-main {
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.trello-board {
-  display: flex;
-  flex-grow: 1;
-  gap: 1rem;
-}
-
-.section {
-  flex-grow: 1;
-  background-color: #f9f9f9;
-  padding: 1rem;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.section h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.card {
-  background-color: #fff;
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-}
-
-.card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
-
-.card p {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.control-panel {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.control-panel h2 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-form label {
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-form input,
-form select {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-form button {
-  padding: 0.5rem 1rem;
-  background-color: #026aa7;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-form button[type="submit"] {
-  background-color: #044c86;
-}
-
-form select {
-  appearance: none;
-  background: transparent;
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  background-size: 18px;
-}
-
-/* Responsive styles */
-@media screen and (max-width: 768px) {
-  main {
-    flex-direction: column;
-  }
-  
-  .section {
-    max-width: 100%;
-  }
-}
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <!-- Header with title and input for updating the title -->
         <div class="header">
             <h1 id="boardTitle">Your Board Title</h1>
-            <input type="text" id="updateTitleInput" placeholder="Enter new title">
-            <button id="updateTitleButton">Update Title</button>
+            <input type="text" id="updateTitleInput" placeholder="Enter new title" aria-label="Update Title Input">
+            <button id="updateTitleButton" aria-label="Update Title Button">Update Title</button>
         </div>
     </header>
     <main>
-        <!-- Trello board body with sections and cards -->
         <div class="trello-board">
             <div class="section" id="sectionToDo">
                 <h2>To Do</h2>
-                <!-- Cards for the To Do section -->
-                <div class="card">
+                <!-- <div class="card">
                     <h3>Task 1</h3>
                     <p>This is the description for Task 1.</p>
                 </div>
                 <div class="card">
                     <h3>Task 2</h3>
-                    <p>This is the description for Task .</p>
-                </div>
+                    <p>This is the description for Task 2.</p>
+                </div> -->
             </div>
             <div class="section" id="sectionInProgress">
                 <h2>In Progress</h2>
-                <!-- Cards for the In Progress section -->
             </div>
             <div class="section" id="sectionDone">
                 <h2>Done</h2>
-                <!-- Cards for the Done section -->
             </div>
         </div>
     </main>
     <aside>
-        <!-- Control panel for creating, updating, and deleting cards -->
         <div class="control-panel">
             <h2>Control Panel</h2>
-            <form id="createCardForm">
-                <label for="title">Title:</label>
-                <input type="text" id="title" required>
-                <label for="description">Description:</label>
-                <input type="text" id="description" required>
-                <label for="section">Section:</label>
-                <select id="section" required>
-                    <option value="1">To Do</option>
-                    <option value="2">In Progress</option>
-                    <option value="3">Done</option>
-                </select>
-                <button type="submit">Create Card</button>
-            </form>
-            <form id="deleteCardForm">
-                <label for="deleteCard">Select Card to Delete:</label>
-                <!-- Dropdown with options to select a card to delete -->
-                <select id="deleteCard"></select>
-                <button type="submit">Delete Card</button>
-            </form>
-            <form id="updateCardForm">
-                <label for="updateCard">Select Card to Update:</label>
-                <!-- Dropdown with options to select a card to update -->
-                <select id="updateCard"></select>
-                <label for="updateTitle">Title:</label>
-                <input type="text" id="updateTitle" required>
-                <label for="updateDescription">Description:</label>
-                <input type="text" id="updateDescription" required>
-                <label for="updateSection">Section:</label>
-                <select id="updateSection" required>
-                    <option value="1">To Do</option>
-                    <option value="2">In Progress</option>
-                    <option value="3">Done</option>
-                </select>
-                <button type="submit">Update Card</button>
-            </form>
+            <div class="control-forms">
+                <div class="control-method">
+                    <h3>Create Card</h3>
+                    <form id="createCardForm">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" required aria-label="Title Input">
+                        <label for="description">Description:</label>
+                        <input type="text" id="description" required aria-label="Description Input">
+                        <label for="section">Section:</label>
+                        <select id="section" required aria-label="Section Select">
+                            <option value="1">To Do</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                        <button type="submit" aria-label="Create Card Button" onclick="refreshPage()">Create Card</button>
+                    </form>
+                </div>
+                <div class="control-method">
+                    <h3>Delete Card</h3>
+                    <form id="deleteCardForm">
+                        <label for="deleteCard">Select Card to Delete:</label>
+                        <select id="deleteCard" aria-label="Delete Card Select"></select>
+                        <button type="submit" aria-label="Delete Card Button">Delete Card</button>
+                    </form>
+                </div>
+                <div class="control-method">
+                    <h3>Update Card</h3>
+                    <form id="updateCardForm">
+                        <label for="updateCard">Select Card to Update:</label>
+                        <select id="updateCard" aria-label="Update Card Select"></select>
+                        <label for="updateTitle">Title:</label>
+                        <input type="text" id="updateTitle" required aria-label="Update Title Input">
+                        <label for="updateDescription">Description:</label>
+                        <input type="text" id="updateDescription" required aria-label="Update Description Input">
+                        <label for="updateSection">Section:</label>
+                        <select id="updateSection" required aria-label="Update Section Select">
+                            <option value="1">To Do</option>
+                            <option value="2">In Progress</option>
+                            <option value="3">Done</option>
+                        </select>
+                        <button type="submit" aria-label="Update Card Button">Update Card</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </aside>
-    <script>
-        // Add your JavaScript code here
-    </script>
+    <script src="scripts.js"></script>
 </body>
 </html>

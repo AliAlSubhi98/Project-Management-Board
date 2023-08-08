@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/boards")
 public class BoardController {
     private final BoardService boardService;
