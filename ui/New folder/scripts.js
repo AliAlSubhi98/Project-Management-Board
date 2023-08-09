@@ -1,6 +1,6 @@
   const host = window.location.host;
   let apiBoardID = 8;
-  let url = 'http://localhost:8080/api/boards/' + apiBoardID + '/cards';
+  let url = 'http://'+host+'/api/boards/' + apiBoardID + '/cards';
 
   // Function to update the Trello board with the fetched data
   async function updateTrelloBoard() {
@@ -14,19 +14,24 @@
       const sectionToDo = document.getElementById('sectionToDo');
       const sectionInProgress = document.getElementById('sectionInProgress');
       const sectionDone = document.getElementById('sectionDone');
+      
+      const deleteCardDropbox = document.getElementById("deleteCard");
+      const updateCardDropbox = document.getElementById("updateCard");
+
+      deleteCardDropbox.innerHTML = `<option value="" disabled selected>Select an option</option>`;
+      updateCardDropbox.innerHTML = `<option value="" disabled selected>Select an option</option>`;
 
       // Loop through the fetched data and create cards for each item
       data.forEach(cardData => {
         const card = document.createElement('div');
-        const deleteCardDropbox = document.getElementById("deleteCard");
-        const updateCardDropbox = document.getElementById("updateCard");
 
         card.classList.add('card');
+        card.id = cardData.id;
         card.innerHTML = `
-            <h3 class="card-id">#${cardData.id}</h3>
-            <h3 class="card-title">${cardData.title}</h3>
+            <h3 class="card-id" id="id${cardData.id}">#${cardData.id}</h3>
+            <h3 class="card-title" id="title${cardData.id}">${cardData.title}</h3>
             <h6 class="card-description-heading">Description:</h6>
-            <p class="card-description">${cardData.description}</p>
+            <p class="card-description" id="description${cardData.id}">${cardData.description}</p>
           `;
         deleteCardDropbox.innerHTML += `<option>${cardData.id}</option>`;
         updateCardDropbox.innerHTML += `<option>${cardData.id}</option>`;
@@ -70,7 +75,9 @@
       redirect: 'follow'
     };
 
-    if (!titleValue.value || !descValue.value || !sectionValue.value) { }
+    if (!titleValue.value || !descValue.value || !sectionValue.value) {
+      alert("Please fill out all fields")
+     }
     else {
 
       fetch(url, requestOptions)
@@ -91,7 +98,9 @@
 
     var dropdown = document.getElementById("deleteCard");
     var selectedValue = dropdown.value;
-    if (selectedValue === '') { } else {
+    if (selectedValue === '') { 
+      alert('chhose an Card to delete')
+    } else {
 
 
       fetch(`${url}/${selectedValue}`, requestOptions)
@@ -111,31 +120,46 @@
     var dropdown = document.getElementById("updateCard");
     var selectedValue = dropdown.value;
 
-    var titleValue = document.getElementById('updateTitle');
-    var descriptionValue = document.getElementById('updateDescription');
-    var sectionValue = document.getElementById('updateSection')
-
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      "title": titleValue.value,
-      "description": descriptionValue.value,
-      "section": sectionValue.value
-    });
-
-    var requestOptions = {
-      method: 'PUT',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-
-    if (!titleValue.value || !descriptionValue.value || !sectionValue.value) {
-      alert("Please fill out all fields")
+    if (!selectedValue) {
+      alert("Select An option first to Update");
     }
+    
     else {
+
+      var titleValue = document.getElementById('updateTitle');
+      var descriptionValue = document.getElementById('updateDescription');
+      var sectionValue = document.getElementById('updateSection')
+
+      if (titleValue.value === ''){
+        let titleId = "title" + dropdown.value;
+        let title = document.getElementById(titleId).textContent
+        titleValue.value = title;
+      }
+
+      if (descriptionValue.value === ''){
+        let descriptionId = "description" + dropdown.value;
+        let description = document.getElementById(descriptionId).textContent
+        descriptionValue.value = description;
+      }
+      
+      
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        "title": titleValue.value,
+        "description": descriptionValue.value,
+        "section": sectionValue.value
+      });
+
+      var requestOptions = {
+        method: 'PUT',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
       fetch(`${url}/${selectedValue}`, requestOptions)
         .then(response => response.json())
         .then(result => {
