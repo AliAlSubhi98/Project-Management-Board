@@ -17,7 +17,7 @@ public class CardResponse {
 
     private String description;
 
-    Integer section;
+    private Integer section;
 
     public String getSectionName() {
         return Board.getSectionName(this.section);

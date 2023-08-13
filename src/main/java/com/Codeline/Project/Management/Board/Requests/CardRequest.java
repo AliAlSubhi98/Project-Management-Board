@@ -11,16 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardRequest {
+    Integer section;
     private Long id;
-
     private String title;
-
     private String description;
 
-    Integer section;
-
-
-    public Card convertToCard(){
+    public Card convertToCard() {
         Card card = new Card();
         card.setId(this.getId());
         card.setTitle(this.getTitle());

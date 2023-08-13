@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class CardService {
     private final CardRepository cardRepository;
@@ -48,6 +49,4 @@ public class CardService {
         cardRepository.delete(card);
         return true;
     }
-
-    // Other methods as needed
 }

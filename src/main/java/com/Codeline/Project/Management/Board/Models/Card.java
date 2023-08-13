@@ -1,5 +1,6 @@
 package com.Codeline.Project.Management.Board.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,8 +25,9 @@ public class Card {
     @Column(nullable = false)
     private Integer section;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "board_id", nullable = false)
+   // @JoinColumn(nullable = false)
     private Board board;
 
 

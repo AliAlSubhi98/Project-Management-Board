@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -14,12 +15,16 @@ import java.util.Map;
 @NoArgsConstructor
 @Table(name = "boards")
 public class Board {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String title;
+
+    @OneToMany(mappedBy = "board")
+    List<Card> cards;
 
     // Include columns in the board
     @ElementCollection
@@ -36,10 +41,19 @@ public class Board {
         this.id = id;
     }
 
+//    public Board(String title, Map<Integer, String> columns) {
+//        this.title = title;
+//        this.columns = columns;
+//    }
+
     public Board(String title, Map<Integer, String> columns) {
         this.title = title;
-        this.columns = columns;
+        if (columns != null && !columns.isEmpty()) {
+            this.columns.clear();
+            this.columns.putAll(columns);
+        }
     }
+
 
     // Helper method to get section name by section index
     public static String getSectionName(int sectionIndex) {

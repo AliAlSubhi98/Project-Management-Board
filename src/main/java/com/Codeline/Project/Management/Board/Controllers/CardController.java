@@ -1,4 +1,5 @@
 package com.Codeline.Project.Management.Board.Controllers;
+
 import com.Codeline.Project.Management.Board.Models.Board;
 import com.Codeline.Project.Management.Board.Models.Card;
 import com.Codeline.Project.Management.Board.Requests.CardRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/boards/{boardId}/cards")
@@ -31,12 +33,7 @@ public class CardController {
         Card createdCard = cardService.createCard(card);
 
         // Map the createdCard attributes to a new CardResponse object
-        CardResponse cardResponse = new CardResponse(
-                createdCard.getId(),
-                createdCard.getTitle(),
-                createdCard.getDescription(),
-                createdCard.getSection()
-        );
+        CardResponse cardResponse = new CardResponse(createdCard.getId(), createdCard.getTitle(), createdCard.getDescription(), createdCard.getSection());
 
         return new ResponseEntity<>(cardResponse, HttpStatus.CREATED);
     }
@@ -47,12 +44,7 @@ public class CardController {
         List<CardResponse> cardResponses = new ArrayList<>();
 
         for (Card card : cards) {
-            CardResponse cardResponse = new CardResponse(
-                    card.getId(),
-                    card.getTitle(),
-                    card.getDescription(),
-                    card.getSection()
-            );
+            CardResponse cardResponse = new CardResponse(card.getId(), card.getTitle(), card.getDescription(), card.getSection());
             cardResponses.add(cardResponse);
         }
 
@@ -66,19 +58,13 @@ public class CardController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        CardResponse cardResponse = new CardResponse(
-                card.getId(),
-                card.getTitle(),
-                card.getDescription(),
-                card.getSection()
-        );
+        CardResponse cardResponse = new CardResponse(card.getId(), card.getTitle(), card.getDescription(), card.getSection());
 
         return new ResponseEntity<>(cardResponse, HttpStatus.OK);
     }
 
     @PutMapping("/{cardId}")
-    public ResponseEntity<CardResponse> updateCardOnBoard(@PathVariable Long boardId, @PathVariable Long cardId,
-                                                          @RequestBody CardRequest updatedCardRequest) {
+    public ResponseEntity<CardResponse> updateCardOnBoard(@PathVariable Long boardId, @PathVariable Long cardId, @RequestBody CardRequest updatedCardRequest) {
         Card card = updatedCardRequest.convertToCard();
         card.setId(cardId); // Set the ID of the updated card
 
@@ -87,23 +73,12 @@ public class CardController {
         if (existingCard == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-//        if (!existingCard.getSection().equals(card.getSection())) {
-//            // Perform any logic for repositioning the card within the board based on the section
-//            // (You can handle this logic in the cardService or any other appropriate service)
-//        }
-
         Card updatedCard = cardService.updateCard(card);
         if (updatedCard == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        CardResponse cardResponse = new CardResponse(
-                updatedCard.getId(),
-                updatedCard.getTitle(),
-                updatedCard.getDescription(),
-                updatedCard.getSection()
-        );
+        CardResponse cardResponse = new CardResponse(updatedCard.getId(), updatedCard.getTitle(), updatedCard.getDescription(), updatedCard.getSection());
 
         return new ResponseEntity<>(cardResponse, HttpStatus.OK);
     }
