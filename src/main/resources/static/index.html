@@ -24,9 +24,9 @@
     <main>
         <div class="trello-board">
             
-            <div class="section" >
-                <h2>To Do</h2>
-                <div id="sectionToDo">
+            <div class="section" id="sectionToDoDrop" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h2 >To Do </h2>
+                <div id="sectionToDo" >
                     <!-- <div class="card">
                         <h3>Task 1</h3>
                         <p>This is the description for Task 1.</p>
@@ -37,12 +37,12 @@
                     </div> -->
                 </div>
             </div>
-            <div class="section">
+            <div class="section" id="sectionInProgressDrop" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <h2>In Progress</h2>
                 <div id="sectionInProgress">
                 </div>
             </div>
-            <div class="section" >
+            <div class="section" id="sectionDoneDrop" ondrop="drop(event)" ondragover="allowDrop(event)">
                 <h2>Done</h2>
                 <div id="sectionDone">
                     

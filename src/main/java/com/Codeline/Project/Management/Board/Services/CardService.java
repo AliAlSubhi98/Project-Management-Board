@@ -34,10 +34,15 @@ public class CardService {
             return null; // Card not found
         }
 
-        existingCard.setTitle(updatedCard.getTitle());
-        existingCard.setDescription(updatedCard.getDescription());
-        existingCard.setSection(updatedCard.getSection());
-
+        if(updatedCard.getTitle() != null  ){
+            existingCard.setTitle(updatedCard.getTitle());
+        }
+        if(updatedCard.getDescription() != null  ) {
+            existingCard.setDescription(updatedCard.getDescription());
+        }
+        if(updatedCard.getSection() != null ) {
+            existingCard.setSection(updatedCard.getSection());
+        }
         return cardRepository.save(existingCard);
     }
 
