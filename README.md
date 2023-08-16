@@ -158,7 +158,7 @@ Endpoint: DELETE /api/boards/{boardId}/cards/{cardId}
 
 ## License
 
-This project is free to use (LICENSE).
+This project is free to use.
 
 ## Contributing
 
@@ -166,5 +166,5 @@ We welcome contributions! Feel free to report issues or submit pull requests.
 
 ## Contact
 
-If you have questions or feedback, feel free to contact us at [Hopeofoman1@email.com](mailto:Hopeofoman1@email.com).
+If you have questions or feedback, feel free to contact us at [Hopeofoman1@gmail.com](mailto:Hopeofoman1@gmail.com).
 ```
