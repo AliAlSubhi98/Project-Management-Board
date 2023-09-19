@@ -3,7 +3,7 @@ console.log(host);
 
 let apiBoardID = 1;
 //let url = 'http://' + 'localhost:8080' + '/api/boards/' + apiBoardID + '/cards';
- let url = `http://${host}/api/boards/${apiBoardID}/cards`;
+ let url = `http://${host}:8080/api/boards/${apiBoardID}/cards`;
  console.log(url);
 
 
@@ -210,7 +210,7 @@ function changeBoard() {
   apiBoardID = parseInt(selectedBoardId);
 
   // Update the 'url' variable with the new API endpoint
-  url = `http://${host}/api/boards/` + apiBoardID + '/cards';
+  url = `http://${host}:8080/api/boards/` + apiBoardID + '/cards';
 
   // Call the 'updateTrelloBoard' function to fetch and display the data for the selected board
   updateTrelloBoard();
@@ -220,7 +220,7 @@ function changeBoard() {
 //-----------------------------------------------------------------
 function getBoardTitle() {
   // Send a GET request to the API endpoint that returns the board title
-  fetch(`http://${host}/api/boards/${apiBoardID}`, {
+  fetch(`http://${host}:8080/api/boards/${apiBoardID}`, {
     method: 'GET',
     redirect: 'follow'
   })
@@ -235,6 +235,7 @@ function getBoardTitle() {
 
 // Call the function to get and display the board title
 getBoardTitle();
+document.addEventListener('DOMContentLoaded', getBoardTitle);
 //-----------------------------------------------------------------
 
 function updateTitleOfTheBoard() {
@@ -253,7 +254,7 @@ function updateTitleOfTheBoard() {
     redirect: 'follow'
   };
 
-  fetch(`http://${host}/api/boards/${apiBoardID}`, requestOptions)
+  fetch(`http://${host}:8080/api/boards/${apiBoardID}`, requestOptions)
     .then(response => response.text())
     .then(result => {
       console.log(result)
