@@ -17,39 +17,65 @@ public class BoardService {
     }
 
     public Board createBoard(Board board) {
-        return boardRepository.save(board);
+        try {
+            return boardRepository.save(board);
+
+        } catch (
+                Exception e) {
+            return null;
+        }
+
     }
 
     public List<Board> getAllBoards() {
-        return boardRepository.findAll();
+        try {
+
+            return boardRepository.findAll();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Board getBoardById(Long boardId) {
-        return boardRepository.findById(boardId).orElse(null);
+        try {
+
+            return boardRepository.findById(boardId).orElse(null);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
+
     public Board updateBoard(Long boardId, Board updatedBoard) {
-        Board existingBoard = boardRepository.findById(boardId).orElse(null);
-        if (existingBoard == null) {
-            return null; // Board not found
+        try {
+            Board existingBoard = boardRepository.findById(boardId).orElse(null);
+            if (existingBoard == null) {
+                return null; // Board not found
+            }
+
+            // Update the fields of the existing board with the values from the updated board
+            // existingBoard.setId(updatedBoard.getId());
+            existingBoard.setTitle(updatedBoard.getTitle()); // TITLE IS THE ONLY REQUIRED TO UPDATE
+            //existingBoard.setColumns(updatedBoard.getColumns());
+
+            return boardRepository.save(existingBoard);
+        } catch (Exception e) {
+            return null;
         }
-
-        // Update the fields of the existing board with the values from the updated board
-        // existingBoard.setId(updatedBoard.getId());
-        existingBoard.setTitle(updatedBoard.getTitle()); // TITLE IS THE ONLY REQUIRED TO UPDATE
-        //existingBoard.setColumns(updatedBoard.getColumns());
-
-        return boardRepository.save(existingBoard);
     }
 
     public boolean deleteBoard(Long boardId) {
-        Board board = boardRepository.findById(boardId).orElse(null);
-        if (board == null) {
-            return false; // Board not found
-        }
-        boardRepository.delete(board);
-        return true;
-    }
+        try {
+            Board board = boardRepository.findById(boardId).orElse(null);
+            if (board == null) {
+                return false; // Board not found
+            }
+            boardRepository.delete(board);
+            return true;
 
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
 

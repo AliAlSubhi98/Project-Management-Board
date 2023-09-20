@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,8 @@ public class BoardRequest {
     private Map<Integer, String> columns;
    // private List<Card> cards;
 
+    private Date updatedDate = new Date();
+
 
     public Board ConvertToBoard() {
         Board board = new Board();
@@ -29,7 +32,7 @@ public class BoardRequest {
         board.setId(this.getId());
         board.setTitle(this.getTitle());
         board.setColumns(getColumns());
-       // board.setCards(getCards());
+        board.setUpdatedDate(this.updatedDate);
         return board;
     }
 

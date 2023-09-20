@@ -17,41 +17,63 @@ public class CardService {
     }
 
     public Card createCard(Card card) {
-        return cardRepository.save(card);
+        try {
+            return cardRepository.save(card);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<Card> getAllCardsFromBoard(Long boardId) {
-        return cardRepository.findByBoardId(boardId);
+        try {
+            return cardRepository.findByBoardId(boardId);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Card getCardFromBoardById(Long boardId, Long cardId) {
-        return cardRepository.findByBoardIdAndId(boardId, cardId);
+        try {
+            return cardRepository.findByBoardIdAndId(boardId, cardId);
+
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Card updateCard(Card updatedCard) {
-        Card existingCard = cardRepository.findById(updatedCard.getId()).orElse(null);
-        if (existingCard == null) {
-            return null; // Card not found
-        }
+        try {
+            Card existingCard = cardRepository.findById(updatedCard.getId()).orElse(null);
+            if (existingCard == null) {
+                return null; // Card not found
+            }
 
-        if(updatedCard.getTitle() != null  ){
-            existingCard.setTitle(updatedCard.getTitle());
+            if (updatedCard.getTitle() != null) {
+                existingCard.setTitle(updatedCard.getTitle());
+            }
+            if (updatedCard.getDescription() != null) {
+                existingCard.setDescription(updatedCard.getDescription());
+            }
+            if (updatedCard.getSection() != null) {
+                existingCard.setSection(updatedCard.getSection());
+            }
+            return cardRepository.save(existingCard);
+        } catch (Exception e) {
+            return null;
         }
-        if(updatedCard.getDescription() != null  ) {
-            existingCard.setDescription(updatedCard.getDescription());
-        }
-        if(updatedCard.getSection() != null ) {
-            existingCard.setSection(updatedCard.getSection());
-        }
-        return cardRepository.save(existingCard);
     }
 
     public boolean deleteCardFromBoard(Long boardId, Long cardId) {
-        Card card = cardRepository.findByBoardIdAndId(boardId, cardId);
-        if (card == null) {
-            return false; // Card not found
+        try {
+            Card card = cardRepository.findByBoardIdAndId(boardId, cardId);
+            if (card == null) {
+                return false; // Card not found
+            }
+            cardRepository.delete(card);
+            return true;
+
+        } catch (Exception e) {
+            return false;
         }
-        cardRepository.delete(card);
-        return true;
     }
 }

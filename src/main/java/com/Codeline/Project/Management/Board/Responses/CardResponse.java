@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class CardResponse {
 
     private Integer section;
 
+    private Date updatedDate;
     public String getSectionName() {
         return Board.getSectionName(this.section);
     }

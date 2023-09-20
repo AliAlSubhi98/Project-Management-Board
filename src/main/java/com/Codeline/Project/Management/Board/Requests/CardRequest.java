@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class CardRequest {
     private Long id;
     private String title;
     private String description;
+    private Date updatedDate = new Date();
 
     public Card convertToCard() {
         Card card = new Card();
@@ -22,6 +25,7 @@ public class CardRequest {
         card.setTitle(this.getTitle());
         card.setDescription(this.getDescription());
         card.setSection(this.getSection());
+        card.setUpdatedDate(this.updatedDate);
 
         return card;
     }

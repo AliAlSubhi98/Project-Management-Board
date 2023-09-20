@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,58 +26,79 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<BoardResponse> createBoard(@RequestBody Board board) {
-        Board createdBoard = boardService.createBoard(board);
+        try {
+            Board createdBoard = boardService.createBoard(board);
+            Date now = new Date();
 
-        // Map the createdBoard attributes to a new BoardResponse object
-        BoardResponse boardResponse = new BoardResponse(createdBoard.getId(), createdBoard.getTitle(), createdBoard.getColumns() /*, createdBoard.getCards()*/);
+            // Map the createdBoard attributes to a new BoardResponse object
+            BoardResponse boardResponse = new BoardResponse(createdBoard.getId(), createdBoard.getTitle(), createdBoard.getColumns() , new Date());
 
-        return new ResponseEntity<>(boardResponse, HttpStatus.CREATED);
+            return new ResponseEntity<>(boardResponse, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<BoardResponse>> getAllBoards() {
-        List<Board> boards = boardService.getAllBoards();
-        List<BoardResponse> responses = new ArrayList<>();
+        try {
+            List<Board> boards = boardService.getAllBoards();
+            List<BoardResponse> responses = new ArrayList<>();
 
-        for (Board board : boards) {
-            BoardResponse boardResponse = new BoardResponse(board.getId(), board.getTitle(), board.getColumns() /*, board.getCards()*/);
-            responses.add(boardResponse);
+            for (Board board : boards) {
+                BoardResponse boardResponse = new BoardResponse(board.getId(), board.getTitle(), board.getColumns(), new Date() /*, board.getCards()*/);
+                responses.add(boardResponse);
+            }
+            return new ResponseEntity<>(responses, HttpStatus.OK);
+        } catch (Exception e) {
+            return null;
         }
-        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 
     @GetMapping("/{boardId}")
     public ResponseEntity<Board> getBoardById(@PathVariable Long boardId) {
-        Board board = boardService.getBoardById(boardId);
+        try {
+            Board board = boardService.getBoardById(boardId);
 
-        if (board == null) {
-            // Create a default board and save it
-            Board defaultBoard = new Board();
-            defaultBoard.setTitle("Default Board Title");
-            board = boardService.createBoard(defaultBoard);
-            return new ResponseEntity<>(board, HttpStatus.CREATED);
+            if (board == null) {
+                // Create a default board and save it
+                Board defaultBoard = new Board();
+                defaultBoard.setTitle("Default Board Title");
+                board = boardService.createBoard(defaultBoard);
+                return new ResponseEntity<>(board, HttpStatus.CREATED);
+            }
+            return new ResponseEntity<>(board, HttpStatus.OK);
+        } catch (Exception e) {
+            return null;
         }
-        return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
     @PutMapping("/{boardId}")
     public ResponseEntity<Board> updateBoard(@PathVariable Long boardId, @RequestBody Board updatedBoard) {
-        Board board = boardService.updateBoard(boardId, updatedBoard);
-        if (board == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        try {
+            Board board = boardService.updateBoard(boardId, updatedBoard);
+            if (board == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(board, HttpStatus.OK);
+        } catch (Exception e) {
+            return null;
         }
-        return new ResponseEntity<>(board, HttpStatus.OK);
     }
 
     @DeleteMapping("/{boardId}")
     public ResponseEntity<DeleteResponse> deleteBoard(@PathVariable Long boardId) {
-        boolean isBoardDeleted = boardService.deleteBoard(boardId);
-        if (!isBoardDeleted) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        try {
+            boolean isBoardDeleted = boardService.deleteBoard(boardId);
+            if (!isBoardDeleted) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
 
-        // Board is deleted successfully, create the response object
-        DeleteResponse response = new DeleteResponse(true, "Board with ID " + boardId + " has been deleted successfully.");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+            // Board is deleted successfully, create the response object
+            DeleteResponse response = new DeleteResponse(true, "Board with ID " + boardId + " has been deleted successfully.");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -14,7 +14,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "boards")
-public class Board {
+public class Board extends BaseEntity{
 
 
     @Id
